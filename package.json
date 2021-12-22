@@ -19,6 +19,7 @@
   },
   "homepage": "https://github.com/onealwills/Trader#readme",
   "dependencies": {
+    "@heroku/buildpack-registry": "^1.0.1",
     "axios": "^0.24.0",
     "bcryptjs": "^2.4.3",
     "dotenv": "^10.0.0",
@@ -33,5 +34,8 @@
     "eslint-plugin-react": "^7.27.1",
     "nodemon": "^2.0.15"
   },
-  "engines": {"node":"14.15.1", "npm": "8.1.4"}
+  "engines": {
+    "node": "12.4.0",
+    "npm": "6.9.0"
+  }
 }
