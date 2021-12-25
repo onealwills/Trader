@@ -3,14 +3,15 @@ import express from "express";
 import expressAsyncHandler from "express-async-handler";
 import data from "../data.js";
 import User from "../models/userModel.js";
-import { generateToken, isAuth } from "../utils.js";
+import { generateToken, isAdmin, isAuth } from "../utils.js";
 
 const userRouter = express.Router();
 
 userRouter.get(
   "/seed",
   expressAsyncHandler(async (req, res) => {
-    await User.remove({});
+    // instead of remove i used deleteMany, the deprecation warning stopped
+    await User.deleteMany({});
     const createdUsers = await User.insertMany(data.users);
     res.send({ createdUsers });
   })
@@ -85,6 +86,16 @@ userRouter.put(
         token: generateToken(updatedUser),
       });
     }
+  })
+);
+
+userRouter.get(
+  "/",
+  isAuth,
+  isAdmin,
+  expressAsyncHandler(async (req, res) => {
+    const users = await User.find({});
+    res.send(users);
   })
 );
 export default userRouter;
