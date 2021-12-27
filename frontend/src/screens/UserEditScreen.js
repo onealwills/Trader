@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Fragment } from "react";
 import { useEffect } from "react";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -60,7 +60,7 @@ export default function UserEditScreen(props) {
         ) : error ? (
           <MessageBox variant="danger">{error}</MessageBox>
         ) : (
-          <>
+          <Fragment>
             <div>
               <label htmlFor="name">Name</label>
               <input
@@ -104,7 +104,7 @@ export default function UserEditScreen(props) {
                 Update
               </button>
             </div>
-          </>
+          </Fragment>
         )}
       </form>
     </div>
