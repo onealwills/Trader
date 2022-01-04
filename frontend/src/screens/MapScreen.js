@@ -8,9 +8,9 @@ import {
   Marker,
 } from "@react-google-maps/api";
 import LoadingBox from "../components/LoadingBox";
+import axios from "axios";
 import { USER_ADDRESS_MAP_CONFIRM } from "../constants/userConstants";
 import { useDispatch } from "react-redux";
-import axios from "../../node_modules/axios/index";
 
 const libs = ["places"];
 const defaultLocation = { lat: 45.516, lng: -73.56 };
