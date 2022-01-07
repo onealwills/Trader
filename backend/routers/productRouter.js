@@ -10,6 +10,8 @@ const productRouter = express.Router();
 productRouter.get(
   "/",
   expressAsyncHandler(async (req, res) => {
+    const pageSize = 3;
+    const page = Number(req.query.pageNumber) || 1;
     const name = req.query.name || "";
     const category = req.query.category || "";
     const seller = req.query.seller || "";
@@ -22,6 +24,7 @@ productRouter.get(
       req.query.rating && Number(req.query.rating) !== 0
         ? Number(req.query.rating)
         : 0;
+
     const nameFilter = name ? { name: { $regex: name, $options: "i" } } : {};
     const sellerFilter = seller ? { seller } : {};
     const categoryFilter = category ? { category } : {};
@@ -35,7 +38,13 @@ productRouter.get(
         : order === "toprated"
         ? { rating: -1 }
         : { _id: -1 };
-
+    const count = await Product.count({
+      ...sellerFilter,
+      ...nameFilter,
+      ...categoryFilter,
+      ...priceFilter,
+      ...ratingFilter,
+    });
     const products = await Product.find({
       ...sellerFilter,
       ...nameFilter,
@@ -44,8 +53,10 @@ productRouter.get(
       ...ratingFilter,
     })
       .populate("seller", "seller.name seller.logo")
-      .sort(sortOrder);
-    res.send(products);
+      .sort(sortOrder)
+      .skip(pageSize * (page - 1))
+      .limit(pageSize);
+    res.send({ products, page, pages: Math.ceil(count / pageSize) });
   })
 );
 productRouter.get(
