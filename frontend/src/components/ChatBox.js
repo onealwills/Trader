@@ -1,3 +1,4 @@
+// eslint-disable-next-line
 import React, { useEffect, useRef, useState } from "react";
 import socketIOClient from "socket.io-client";
 
@@ -34,7 +35,7 @@ export default function ChatBox(props) {
         setMessages([...messages, { body: data.body, name: data.name }]);
       });
     }
-  }, [messages, isOpen, socket]);
+  }, [messages, isOpen, socket, userInfo._id, userInfo.isAdmin, userInfo.name]);
 
   const supportHandler = () => {
     setIsOpen(true);

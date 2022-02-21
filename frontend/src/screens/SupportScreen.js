@@ -1,3 +1,4 @@
+// eslint-disable-next-line
 import React, { useEffect, useRef, useState } from "react";
 import socketIOClient from "socket.io-client";
 import { useSelector } from "react-redux";
@@ -73,7 +74,7 @@ export default function SupportScreen() {
         setMessages(allMessages);
       });
     }
-  }, [messages, socket, users]);
+  }, [messages, socket, users, userInfo._id, userInfo.isAdmin, userInfo.name]);
 
   const selectUser = (user) => {
     allSelectedUser = user;
