@@ -21,7 +21,7 @@ userRouter.get(
   "/seed",
   expressAsyncHandler(async (req, res) => {
     // instead of remove i used deleteMany, the deprecation warning stopped
-    await User.remove({});
+    // await User.remove({});
     const createdUsers = await User.insertMany(data.users);
     res.send({ createdUsers });
   })
