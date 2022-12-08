@@ -3,12 +3,12 @@ import expressAsyncHandler from "express-async-handler";
 import Order from "../models/OrderModel.js";
 import User from "../models/userModel.js";
 import Product from "../models/productModel.js";
+import nodemailer from "nodemailer";
 
 import {
   isAdmin,
   isAuth,
   isSellerOrAdmin,
-  mailgun,
   payOrderEmailTemplate,
 } from "../utils.js";
 
@@ -134,24 +134,49 @@ orderRouter.put(
         email_address: req.body.email_address,
       };
       const updatedOrder = await order.save();
-      mailgun()
-        .messages()
-        .send(
-          {
-            from: "Trader <trader@mg.yourdomain.com>",
-            to: `${order.user.name} <${order.user.email}>`,
-            subject: `New order ${order._id}`,
-            html: payOrderEmailTemplate(order),
-          },
-          (error, body) => {
-            if (error) {
-              console.log(error);
-            } else {
-              console.log(body);
-            }
-          }
-        );
+      // mailgun()
+      //   .messages()
+      //   .send(
+      //     {
+      //       from: "oneal",
+      //       to: `${order.user.name} <${order.user.email}>`,
+      //       subject: `New order ${order._id}`,
+      //       html: payOrderEmailTemplate(order),
+      //     },
+
+      //   (error, body) => {
+      //     if (error) {
+      //       console.log(error);
+      //     } else {
+      //       console.log(body);
+      //     }
+      //   }
+      // );
+      var transporter = nodemailer.createTransport({
+        host: "smtp.gmail.com",
+        port: 587,
+        auth: {
+          user: process.env.NODEMAILER_USER,
+          pass: process.env.NODEMAILER_PASSWORD,
+        },
+      });
+
+      var mailOptions = {
+        from: process.env.NODEMAILER_USER,
+        to: `${order.user.name} <${order.user.email}>`,
+        subject: `New order ${order._id}`,
+        html: payOrderEmailTemplate(order),
+      };
+
+      transporter.sendMail(mailOptions, function (error, info) {
+        if (error) {
+          console.log(error);
+        } else {
+          console.log("Email sent: " + info.response);
+        }
+      });
       res.send({ message: "Order Paid", order: updatedOrder });
+      console.log("order paid >>>", updatedOrder);
     } else {
       res.status(404).send({ message: "Order Not Found" });
     }
