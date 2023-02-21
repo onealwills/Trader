@@ -69,7 +69,7 @@ function App() {
               Trader
             </Link>
           </div>
-          <div>
+          <div className="searchBox">
             <Route
               render={({ history }) => (
                 <SearchBox history={history}></SearchBox>

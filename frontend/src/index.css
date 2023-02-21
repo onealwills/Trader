@@ -458,3 +458,27 @@ img.large {
 .support-users .unread {
   background-color: #f02020;
 }
+@media only screen and (max-width: 450px) {
+  .grid-container {
+    display: grid;
+    grid-template-areas:
+      "header"
+      "main"
+      "footer";
+    grid-template-columns: 1fr;
+    grid-template-rows: 9rem 1fr 7rem;
+    height: 100%;
+  }
+}
+@media only screen and (max-width: 768px) {
+  .grid-container {
+    display: grid;
+    grid-template-areas:
+      "header"
+      "main"
+      "footer";
+    grid-template-columns: 1fr;
+    grid-template-rows: 9rem 1fr 7rem;
+    height: 100%;
+  }
+}
