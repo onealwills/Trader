@@ -37,6 +37,11 @@ footer {
   background-color: #203040;
   color: #ffffff;
 }
+.roww {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
 .row {
   display: flex;
   flex-wrap: wrap;
@@ -458,7 +463,7 @@ img.large {
 .support-users .unread {
   background-color: #f02020;
 }
-@media only screen and (max-width: 450px) {
+@media only screen and (max-width: 320px) {
   .grid-container {
     display: grid;
     grid-template-areas:
@@ -468,6 +473,30 @@ img.large {
     grid-template-columns: 1fr;
     grid-template-rows: 9rem 1fr 7rem;
     height: 100%;
+  }
+
+  .open-sidebar {
+    font-size: 0.1rem;
+    padding: 0;
+    margin: 0 0.1rem;
+  }
+  a.brand {
+    font-size: 1.5rem;
+  }
+  header {
+    position: relative;
+  }
+  .search {
+    position: absolute;
+    top: 1rem;
+    left: 90px;
+    margin-left: 1.5rem;
+  }
+  .search button {
+    width: 4rem;
+  }
+  .search input {
+    width: 14rem;
   }
 }
 @media only screen and (max-width: 768px) {
