@@ -498,6 +498,13 @@ img.large {
   .search input {
     width: 14rem;
   }
+  .checkout-steps > div {
+    border-top: 0.3rem #c0c0c0 solid;
+    color: #c0c0c0;
+    flex: 1;
+    padding: 0 0.2rem;
+    font-size: 1rem;
+  }
 }
 @media only screen and (max-width: 768px) {
   .grid-container {
